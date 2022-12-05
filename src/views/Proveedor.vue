@@ -1,6 +1,15 @@
 <template>
   <div>
     <h1>Proveedores</h1>
+    <download-excel
+      class="btn btn-default"
+      :data="json_data"
+      :fields="json_fields"
+      worksheet="My Worksheet"
+      name="filename.xls"
+    >
+        <img src="@/assets/cloud-computing.png" width="40px"/>
+    </download-excel>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -95,7 +104,24 @@ export default {
       Telefono: '',
       Correo: '',
       Tipo_Material: ''
-    }
+    },
+    json_fields: {
+      "Razon Social": "RazonSoc",
+      "Agente": "Agente",
+      "Direccion": "Direccion",
+      "Telefono": "Telefono",
+      "Correo": "Correo",
+      "Tipo Material": "Tipo_Material"
+    },
+    json_data: [],
+    json_meta: [
+      [
+        {
+          key: "charset",
+          value: "utf-8",
+        },
+      ],
+    ],
   }),
   mounted(){
     this.GetApi()
@@ -104,7 +130,11 @@ export default {
   methods: {
     GetApi(){
       this.axios.get('http://20.247.89.187/yulio64neos/api/proveedores/get')
-      .then(res => this.data = res.data)
+      .then((res) => {
+        this.data = res.data,
+        this.json_data = res.data
+        console.log("data",this.data);
+      })
     },
     PostApi(e){
       e.preventDefault()

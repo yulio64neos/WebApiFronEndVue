@@ -1,6 +1,15 @@
 <template>
   <div class="container">
     <h1>Material</h1>
+    <download-excel
+      class="btn btn-default"
+      :data="json_data"
+      :fields="json_fields"
+      worksheet="My Worksheet"
+      name="filename.xls"
+    >
+        <img src="@/assets/cloud-computing.png" width="40px"/>
+    </download-excel>
     <table class="table">
         <thead>
             <tr>
@@ -77,6 +86,21 @@ data: () => ({
             Categoria: '',
             UnidadMedida: ''
         },
+        json_fields: {
+            "Nombre Material" : "Nombre_Mat",
+            "Marca" : "Marca",
+            "Categoria" : "Categoria",
+            "Unidad Medida" : "UnidadMedida"
+        },
+        json_data: [],
+        json_meta: [
+        [
+            {
+            key: "charset",
+            value: "utf-8",
+            },
+        ],
+        ],
         }),
         mounted(){
             this.GetApi()
@@ -85,7 +109,11 @@ data: () => ({
         methods: {
             GetApi(){
             this.axios.get('http://20.247.89.187/yulio64neos/api/Material/Get')
-            .then(res => this.data = res.data)
+            .then((res) => {
+                this.data = res.data
+                this.json_data = res.data
+                console.log("data",this.data);
+            })
             },
             PostApi(e){
             e.preventDefault()
