@@ -2,9 +2,15 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/detalle">Detalle Nota</router-link> |
+      <router-link to="/material">Material</router-link> |
+      <router-link to="/nota">Nota</router-link> |
+      <router-link to="/obra">Obra</router-link> |
+      <router-link to="/proveedor">Proveedor</router-link>
     </nav>
-    <router-view/>
+    <div class="container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
